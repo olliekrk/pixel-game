@@ -7,10 +7,10 @@ import clicker
 
 
 class Game(object):
-    RENDER_SIZE = 50
+    RENDER_AROUND_CHARACTER_SIZE = 50
 
     def __init__(self, level, game_resolution, game_clock):
-        self.fps = 90
+        self.fps = 60
         self.done = False
         self.level = level
         self.screen = game_resolution
@@ -37,8 +37,23 @@ class Game(object):
                 self.click_pointer.click(pygame.mouse.get_pos())
 
     def update_position(self, dt):
+        # moving with mouse
         if self.click_pointer.position is not None:
             self.character.go_to(self.click_pointer, dt)
+
+        else:
+            # moving with arrows
+            keys_pressed = pygame.key.get_pressed()
+            if keys_pressed[pygame.K_UP] and not self.character.is_jumping:
+                self.character.jump()
+            if keys_pressed[pygame.K_RIGHT]:
+                self.character.move_right(dt)
+            elif keys_pressed[pygame.K_LEFT]:
+                self.character.move_left(dt)
+            else:
+                self.character.wait()
+
+        self.character.jump_loop()
 
     def initial_draw(self):
         self.level.draw_background(self.screen)
@@ -50,10 +65,10 @@ class Game(object):
         self.level.draw_background(self.screen)
         self.draw_character()
         self.level.draw_foreground(self.screen)
-        update_rectangle = pygame.Rect(self.character.position_x - self.RENDER_SIZE,
-                                       self.character.position_y - self.RENDER_SIZE,
-                                       2 * self.RENDER_SIZE,
-                                       2 * self.RENDER_SIZE)
+        update_rectangle = pygame.Rect(self.character.position_x - self.RENDER_AROUND_CHARACTER_SIZE,
+                                       self.character.position_y - self.RENDER_AROUND_CHARACTER_SIZE,
+                                       2 * self.RENDER_AROUND_CHARACTER_SIZE,
+                                       2 * self.RENDER_AROUND_CHARACTER_SIZE)
         pygame.display.update(update_rectangle)
 
     def draw_character(self):
