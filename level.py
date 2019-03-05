@@ -7,7 +7,7 @@ class Level(object):
     background_images = None
     foreground_images = None
 
-    FLOOR = 85  # where the character should be standing on current floor
+    FLOOR = 50  # where the character should be standing on current floor
 
     def __init__(self):
         self.background_images = [
@@ -16,7 +16,7 @@ class Level(object):
             # pygame.image.load('./assets/forest/Layer_0008_3.png'),
             # pygame.image.load('./assets/forest/Layer_0007_Lights.png'),
             # pygame.image.load('./assets/forest/Layer_0006_4.png'),
-            # pygame.image.load('./assets/forest/Layer_0005_5.png')
+            pygame.image.load('./assets/forest/Layer_0005_5.png')
         ]
         self.foreground_images = [
             # pygame.image.load('./assets/forest/Layer_0004_Lights.png'),
