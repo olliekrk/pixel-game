@@ -9,7 +9,7 @@ Adventurer while jumping:
 ![](jump.png)
 
 ## Controls
-Currently game supports two types of adventurer's movement's controll:
+Currently game supports two types of adventurer's movement's control:
 1. Click the mouse and character will go there
 2. Navigate your character with arrows (also jump)
 
