@@ -1,4 +1,5 @@
 import sys
+from random import randint
 
 import pygame
 
@@ -9,31 +10,31 @@ import monster
 
 
 class Game(object):
-    ENEMIES_LIMIT = 1
+    ENEMIES_LIMIT = 4
+    SPAWN_BORDER = 30
     alive_characters = pygame.sprite.LayeredDirty()
     alive_enemies = pygame.sprite.LayeredDirty()
 
-    def __init__(self, level_name, game_resolution, game_clock):
-        self.ENEMIES_COUNT = 0
-        self.fps = 60
+    def __init__(self, level_name, game_screen, game_clock):
+        self.fps = 90
         self.done = False
-        self.screen = game_resolution
+        self.screen = game_screen
+        self.screen_width, self.screen_height = game_screen.get_size()
         self.clock = game_clock
         self.click_pointer = clicker.Clicker()
-        self.screen_width, self.screen_height = game_resolution.get_size()
-        self.level = level.Level(level_name, (self.screen_width, self.screen_height))
-        self.player = adventurer.Adventurer(self.screen, 0, self.level.FLOOR)
+        self.level = level.Level(level_name, self.screen_width, self.screen_height)
+        self.player = adventurer.Adventurer(self.screen, 0, self.level.floor)
         self.alive_characters.add(self.player)
 
     def game_loop(self):
-        dt = 0
+        self.alive_characters.clear(self.screen, self.level.background)
         while not self.done:
+            dt = self.clock.tick(self.fps) / 1000.0
             self.event_loop()
             self.spawn_enemies()
-            self.draw_level()
             self.draw_characters(dt)
             self.update_player_position(dt)
-            dt = self.clock.tick(self.fps) / 1000.0
+            self.check_for_player_collisions()
         sys.exit()
 
     def event_loop(self):
@@ -47,7 +48,6 @@ class Game(object):
         # moving with mouse
         if self.click_pointer.position is not None:
             self.player.move_to_click(self.click_pointer, dt)
-
         # moving with arrows
         else:
             keys_pressed = pygame.key.get_pressed()
@@ -62,19 +62,25 @@ class Game(object):
             else:
                 self.player.stop_running()
 
-        self.player.update_rect()
-
     def spawn_enemies(self):
-        if self.ENEMIES_COUNT < self.ENEMIES_LIMIT:
-            monster.Monster(self.screen, 0, self.level.FLOOR, self.alive_characters, self.alive_enemies)
-            self.ENEMIES_COUNT += 1
+        if len(self.alive_enemies.sprites()) < self.ENEMIES_LIMIT:
+            spawn_location = randint(-self.SPAWN_BORDER, 0)
+            spawn_side = randint(0, 1)
 
-    def draw_level(self):
-        self.level.draw_background(self.screen)
-        self.level.draw_foreground(self.screen)
+            # spawn on the right side, otherwise on left
+            if spawn_side == 1:
+                spawn_location = self.screen_width - 2 * self.SPAWN_BORDER
+
+            monster.Monster(self.screen,
+                            spawn_location,
+                            self.level.floor,
+                            self.alive_enemies,
+                            self.alive_characters)
 
     def draw_characters(self, dt):
-        target_x = self.player.position_x
-        self.alive_characters.update(target_x, dt)
+        self.alive_characters.update(self.player.position_x, dt)
         dirty_rects = self.alive_characters.draw(self.screen)
         pygame.display.update(dirty_rects)
+
+    def check_for_player_collisions(self):
+        pygame.sprite.spritecollide(self.player, self.alive_enemies, True)

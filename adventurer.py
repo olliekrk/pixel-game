@@ -6,17 +6,19 @@ import character
 
 
 class Adventurer(character.Character):
-
     def __init__(self, screen, spawn_point_x, level_y, *groups):
         super().__init__(screen, spawn_point_x, level_y, *groups)
-        self.set_character_size(screen, level_y, 50, 40)
-
+        self.set_character_size(screen, level_y, 100, 80)
+        self.IDLE_LENGTH = 4
+        self.RUN_LENGTH = 6
+        self.JUMP_LENGTH = 4
+        self.FALL_LENGTH = 2
         self.character_textures.update({
             self.IDLE_TILES: [
-                pygame.image.load('./assets/adventurer/adventurer-idle-00.png'),
-                pygame.image.load('./assets/adventurer/adventurer-idle-01.png'),
-                pygame.image.load('./assets/adventurer/adventurer-idle-02.png'),
-                pygame.image.load('./assets/adventurer/adventurer-idle-03.png')
+                pygame.image.load('./assets/adventurer/adventurer-idle-2-00.png'),
+                pygame.image.load('./assets/adventurer/adventurer-idle-2-01.png'),
+                pygame.image.load('./assets/adventurer/adventurer-idle-2-02.png'),
+                pygame.image.load('./assets/adventurer/adventurer-idle-2-03.png')
             ],
             self.RUN_TILES: [
                 pygame.image.load('./assets/adventurer/adventurer-run-00.png'),
@@ -37,11 +39,8 @@ class Adventurer(character.Character):
                 pygame.image.load('./assets/adventurer/adventurer-fall-01.png')
             ]
         })
-        self.IDLE_LENGTH = 4
-        self.RUN_LENGTH = 6
-        self.JUMP_LENGTH = 4
-        self.FALL_LENGTH = 2
-        self.image = self.get_current_tile()
+        self.walk_speed = 300
+        self.set_current_image()
 
     def move_to_click(self, clicker, dt):
         if clicker.position is not None:

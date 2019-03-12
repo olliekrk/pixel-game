@@ -14,9 +14,8 @@ if __name__ == "__main__":
     pygame.init()
     pygame.display.set_caption(TITLE)
 
-    game_resolution = pygame.display.set_mode(RESOLUTION)
+    game_screen = pygame.display.set_mode(RESOLUTION)
     game_clock = pygame.time.Clock()
 
-    game.Game(level.Level("whisky", game_resolution), game_resolution, game_clock).game_loop()
-
+    game.Game(level.Level("todo_level_name_loader", RESOLUTION[0], RESOLUTION[1]), game_screen, game_clock).game_loop()
     pygame.quit()

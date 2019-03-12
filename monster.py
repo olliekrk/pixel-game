@@ -1,4 +1,5 @@
 from math import fabs
+from random import randint
 
 import pygame
 import character
@@ -9,27 +10,34 @@ class Monster(character.Character):
         super().__init__(screen, spawn_point_x, level_y, *groups)
         self.IDLE_LENGTH = 4
         self.RUN_LENGTH = 4
+        self.SPAWN_LENGTH = 4
         self.character_textures.update({
             self.IDLE_TILES: [
+                pygame.image.load('./assets/hell-ghost/ghost-halo-1.png'),
+                pygame.image.load('./assets/hell-ghost/ghost-halo-2.png'),
+                pygame.image.load('./assets/hell-ghost/ghost-halo-3.png'),
+                pygame.image.load('./assets/hell-ghost/ghost-halo-4.png'),
+            ],
+            self.RUN_TILES: [
                 pygame.image.load('./assets/hell-ghost/ghost-1.png'),
                 pygame.image.load('./assets/hell-ghost/ghost-2.png'),
                 pygame.image.load('./assets/hell-ghost/ghost-3.png'),
                 pygame.image.load('./assets/hell-ghost/ghost-4.png'),
             ],
-            self.RUN_TILES: [
-                pygame.image.load('./assets/hell-ghost/ghost-halo-1.png'),
-                pygame.image.load('./assets/hell-ghost/ghost-halo-2.png'),
-                pygame.image.load('./assets/hell-ghost/ghost-halo-3.png'),
-                pygame.image.load('./assets/hell-ghost/ghost-halo-4.png'),
+            self.SPAWN_TILES: [
+                pygame.image.load('./assets/hell-ghost/ghost-spawn-1.png'),
+                pygame.image.load('./assets/hell-ghost/ghost-spawn-2.png'),
+                pygame.image.load('./assets/hell-ghost/ghost-spawn-3.png'),
+                pygame.image.load('./assets/hell-ghost/ghost-spawn-4.png')
             ]
         })
-        self.walk_speed = 80
-        self.image = self.get_current_tile()
+        self.walk_speed = 150 + randint(-40, 40)
+        self.set_current_image()
         self.target_x = 0
 
     def update(self, target_x, dt, *args):
         super().update(*args)
-        self.update_rect()
+        self.set_rect()
         self.target_x = target_x
         self.follow_player(dt)
 

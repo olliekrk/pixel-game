@@ -16,11 +16,13 @@ Currently game supports two types of adventurer's movement's control:
 ## TODO
 Things to be added in nearest future:
 1. Hitboxes and collision detection
-2. Enemies spawning
-3. Fighting mechanism
+2. Fighting mechanism
+3. Better spawning mechanism - waves of enemies
 
 ## Credits
-1. Thanks to @rvros for his Adventurer asset pack:
+1. Thanks to @rvros for his Adventurer assets pack:
     https://rvros.itch.io/animated-pixel-hero
-2. Thanks to @edermunizz for his Forest asset pack:
+2. Thanks to @edermunizz for his Forest assets pack:
     https://edermunizz.itch.io/free-pixel-art-forest
+3. Thanks to @ansimuz for his Castlevanie assets pack:
+    https://ansimuz.itch.io/
