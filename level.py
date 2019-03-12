@@ -2,21 +2,22 @@ import pygame
 
 
 class Level(object):
-    RESOLUTION = (900, 600)
+    resolution = None
     background_color = None
     background_images = None
     foreground_images = None
 
     FLOOR = 50  # where the character should be standing on current floor
 
-    def __init__(self):
+    def __init__(self, name, resolution):
+        self.resolution = resolution
         self.background_images = [
             # pygame.image.load('./assets/forest/Layer_0010_1.png'),
             # pygame.image.load('./assets/forest/Layer_0009_2.png'),
             # pygame.image.load('./assets/forest/Layer_0008_3.png'),
             # pygame.image.load('./assets/forest/Layer_0007_Lights.png'),
             # pygame.image.load('./assets/forest/Layer_0006_4.png'),
-            pygame.image.load('./assets/forest/Layer_0005_5.png')
+            # pygame.image.load('./assets/forest/Layer_0005_5.png')
         ]
         self.foreground_images = [
             # pygame.image.load('./assets/forest/Layer_0004_Lights.png'),
@@ -29,8 +30,8 @@ class Level(object):
     def draw_background(self, screen):
         screen.fill((0, 0, 0))
         for image in self.background_images:
-            screen.blit(pygame.transform.scale(image, (900, 600)), (0, 0))
+            screen.blit(pygame.transform.scale(image, self.resolution), (0, 0))
 
     def draw_foreground(self, screen):
         for image in self.foreground_images:
-            screen.blit(pygame.transform.scale(image, (900, 600)), (0, 0))
+            screen.blit(pygame.transform.scale(image, self.resolution), (0, 0))
