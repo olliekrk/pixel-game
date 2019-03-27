@@ -10,8 +10,8 @@ import monster
 
 
 class Game(object):
-    ENEMIES_LIMIT = 4
-    SPAWN_BORDER = 30
+    ENEMIES_LIMIT = 10
+    SPAWN_BORDER = 20
     alive_characters = pygame.sprite.LayeredDirty()
     alive_enemies = pygame.sprite.LayeredDirty()
 

@@ -31,6 +31,7 @@ class Monster(character.Character):
                 pygame.image.load('./assets/hell-ghost/ghost-spawn-4.png')
             ]
         })
+        self.set_character_size(screen, level_y, 70, 70)
         self.walk_speed = 150 + randint(-40, 40)
         self.set_current_image()
         self.target_x = 0

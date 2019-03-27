@@ -3,10 +3,16 @@
 
 ## Screenshots
 Adventurer while idle:
-![](idle.png)
+![](screenshots/idle.png)
 
 Adventurer while jumping:
-![](jump.png)
+![](screenshots/jump.png)
+
+Enemies spawning from both sides:
+![](screenshots/enemy_spawn.png)
+
+Jumping over enemies to attack them:
+![](screenshots/over_enemy.png)
 
 ## Controls
 Currently game supports two types of adventurer's movement's control:
@@ -15,9 +21,12 @@ Currently game supports two types of adventurer's movement's control:
 
 ## TODO
 Things to be added in nearest future:
-1. Hitboxes and collision detection
-2. Fighting mechanism
-3. Better spawning mechanism - waves of enemies
+1. ~~Hitboxes and collision detection~~ **done**
+2. ~~Fighting mechanism~~ **done, yet to be improved**
+3. Better *spawning* mechanism - waves of enemies
+4. Custom level rendering
+5. Fighting controls & attack animations
+6. ...
 
 ## Credits
 1. Thanks to @rvros for his Adventurer assets pack:
